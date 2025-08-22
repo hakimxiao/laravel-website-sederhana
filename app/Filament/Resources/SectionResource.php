@@ -6,6 +6,7 @@ use App\Filament\Resources\SectionResource\Pages;
 use App\Filament\Resources\SectionResource\RelationManagers;
 use App\Models\Section;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -23,14 +24,17 @@ class SectionResource extends Resource
     {
         return $form
             ->schema([
+                // filament layout schema : UI Siap pakai contohnya Card
+                Card::make()->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('thumbnail')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('content')
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->required()->image()->disk('public'),
+                Forms\Components\RichEditor::make('content')
                     ->required(),
+                Forms\Components\Select::make('post_as')->options(['JUMBOTRON' => 'JUMBOTRON', 'ABOUT' => 'ABOUT'])
+                ])
             ]);
     }
 
