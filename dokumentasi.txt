@@ -1,0 +1,12 @@
+Q : Bagaiamana cara menampilkan gambar ke UI ? 
+    A : 1. Dengan menggunakan ImageColumn kalau di table : 
+            Tables\Columns\ImageColumn::make('thumbnail'),
+        2. Dengan menbuatkan referensi link dimana user akan mengambil resource nya 
+            via storage public bukan langsung via storage dengan cara : 
+            a. buat koneksi storage     : php artisan storage:link
+            b. Maka sekarang dia akan terhubung dengan storage yang aslinya sehingga 
+               data pada storage public bisa kita publishkan sebagai url.
+            c. Modifikasi link yang akan di arahkan menjadi sesuai dengan yang seharusnya.
+                I. datang ke .env 
+               II. Dibagian APP_URL silahkan deklarasikan sesuai domain yang ada di search params.
+                   APP_URL=http://127.0.0.1:8000
