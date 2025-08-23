@@ -12,7 +12,9 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
 
 class SectionResource extends Resource
 {
@@ -54,8 +56,15 @@ class SectionResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
+            // bulkaction : untuk menghapus data secara selected / yang dipilih baik 1 maupun banyak 
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->after(function (Collection $records) {
+                    foreach ($records as $record => $value) {
+                        if($value->thumbnail) {
+                            Storage::disk('public')->delete($value->thumbnail);
+                        }
+                    }
+                }),
             ]);
     }
     
