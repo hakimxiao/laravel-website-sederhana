@@ -42,12 +42,11 @@ class SectionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
                 Tables\Columns\ImageColumn::make('thumbnail'),
-                Tables\Columns\TextColumn::make('post_as'),
+                Tables\Columns\TextColumn::make('post_as')->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
-
             ])
             ->filters([
                 //
